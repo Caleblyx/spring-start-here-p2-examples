@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
     @RequestMapping("/home")
     public String home(
-        @RequestParam String color,
+        @RequestParam(required = true) String color,
         Model page) {
         page.addAttribute("username", "Katy");
         page.addAttribute("color", color);
