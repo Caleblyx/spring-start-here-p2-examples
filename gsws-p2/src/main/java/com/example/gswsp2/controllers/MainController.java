@@ -14,7 +14,7 @@ public class MainController {
         @RequestParam(required = false) String color,
         @RequestParam(required = false) String name,
         Model page) {
-        page.addAttribute("username", "Katy");
+        page.addAttribute("username", name);
         page.addAttribute("color", color);
         return "home.html";
     }
