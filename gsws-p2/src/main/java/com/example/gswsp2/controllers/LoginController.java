@@ -14,20 +14,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class LoginController {
+
+    LoginProcessor loginProcessor;
+
+    LoginController(LoginProcessor loginProcessor) {
+        this.loginProcessor = loginProcessor;
+    }
+
     @GetMapping("/")
     public String loginGet() {
         return "login.html";
-    }
+}
     
     @PostMapping("/")
     public String postMethodName(@RequestParam String username, @RequestParam String password, Model model) {
         //TODO: process POST request
-        LoginProcessor loginProcessor = new LoginProcessor(username, password);
-
+        
+        loginProcessor.setUsername(username);
+        loginProcessor.setPassword(password);
+        
         boolean loggedIn = loginProcessor.login();
 
         if (loggedIn) {
-            model.addAttribute("message", "You are now logged in.");
+            return "redirect:/main";
         } else {
             model.addAttribute("message", "Login failed!");
         }

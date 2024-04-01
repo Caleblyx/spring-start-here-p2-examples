@@ -4,16 +4,19 @@ import org.springframework.aot.hint.annotation.Reflective;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
+import com.example.gswsp2.services.LoggedUserManagementService;
+
 @Component
 @RequestScope
 public class LoginProcessor {
     
+    private final LoggedUserManagementService loggedUserManagementService;
+
     private String username;
     private String password;
 
-    public LoginProcessor(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public LoginProcessor(LoggedUserManagementService loggedUserManagementService) {
+        this.loggedUserManagementService = loggedUserManagementService;
     }
 
     public boolean login() {
@@ -21,6 +24,8 @@ public class LoginProcessor {
         String password = this.getPassword();
 
         if ("natalie".equals(username) && "password".equals(password)) {
+
+            loggedUserManagementService.setUsername(username);
             return true;
         } else {
             return false;
